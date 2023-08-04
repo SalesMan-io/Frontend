@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function IndexPage() {
   const recommendedBusinesses = [
     { name: "Magnetic", url: "https://website-magnetic-ai.vercel.app/" },
+    { name: "RickRoll", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
   ];
 
   const router = useRouter();
