@@ -1,6 +1,6 @@
 import { pingServer } from "./api";
 
-let mainUrl = process.env.REACT_APP_PROD_URL || "";
+let mainUrl = process.env.NEXT_PUBLIC_PROD_URL || "";
 // mainUrl = process.env.REACT_APP_DEV_URL;
 // mainUrl = "http://localhost";
 const railwayBUPUrl = process.env.REACT_APP_BUP_URL;
