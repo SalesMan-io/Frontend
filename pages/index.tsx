@@ -24,7 +24,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <Header />
+      {/* <Header />
       <h1>Hello World!</h1>
       <h2>Pick a business below to become an affiliate marketer</h2>
       <ul>
@@ -46,7 +46,7 @@ export default function IndexPage() {
         <input type="text" id="link" name="link" />
         <br />
         <input type="submit" value="Search" />
-      </form>
+      </form> */}
     </>
   );
 }

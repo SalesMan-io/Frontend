@@ -42,12 +42,13 @@ const getLinkInfo = async (id: String) => {
   }
 };
 
-const incrementLinkClicks = async (id: String) => {
+const incrementLinkClicks = async (id: String[]) => {
   try {
     return await axios.post(
       `${await baseUrl()}/link/incrementClicks`,
       {
-        id: id,
+        id: id[0],
+        customerId: id.length > 1 ? id[1] : "",
       },
       {
         headers: {

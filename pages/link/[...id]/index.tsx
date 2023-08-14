@@ -4,7 +4,7 @@ import { incrementLinkClicks } from "../../../api/api";
 
 export default function PostPage() {
   const router = useRouter();
-  const id = router.query.id as string;
+  const id = router.query.id as string[];
   useEffect(() => {
     if (id) {
       (async () => {
