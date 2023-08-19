@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  const store = window.location.host;
+  const info = window.location.pathname;
+  if (document.referrer.includes(store)) {
+    window.location = `http://localhost:3000/${store + info}`;
+  }
+</script>

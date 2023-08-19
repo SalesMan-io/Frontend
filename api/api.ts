@@ -62,4 +62,20 @@ const incrementLinkClicks = async (id: String[]) => {
   }
 };
 
-export { pingServer, createLink, getLinkInfo, incrementLinkClicks };
+const getPartners = async (domain: String) => {
+  try {
+    return await axios.get(
+      `${await baseUrl()}/partner/getPartner/${domain}`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { pingServer, createLink, getLinkInfo, incrementLinkClicks, getPartners };

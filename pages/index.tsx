@@ -13,7 +13,6 @@ export default function IndexPage() {
 
   const onCreateLinkClick = async (e: any) => {
     const result = await createLink(e.target.id);
-    console.log(result);
     router.push("info/" + result?.data._id);
   };
 

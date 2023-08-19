@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { incrementLinkClicks } from "../../../api/api";
 
-export default function PostPage() {
+export default function RedirectPage() {
   const router = useRouter();
   const id = router.query.id as string[];
   useEffect(() => {

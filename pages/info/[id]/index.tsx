@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getLinkInfo } from "../../../api/api";
 import Link from "next/link";
 
-export default function PostPage() {
+export default function InfoPage() {
   const router = useRouter();
   const id = router.query.id as string;
   const [redirectUrl, setRedirectUrl] = useState("");
