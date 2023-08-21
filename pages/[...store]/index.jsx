@@ -43,7 +43,7 @@ export default function PostPurchasePage() {
       <Gallery
         galleryData={galleryData}
         supplier={supplier}
-        customerId={store ? store[1] : null}
+        customerId={store ? store[store.length - 2] : null}
       />
       <br />
       <br />

@@ -86,7 +86,6 @@ export function GalleryImage({ data }) {
   };
 
   const getDiscount = (price, discount) => {
-    console.log(price, discount);
     return price - (price * discount) / 100;
   };
 
