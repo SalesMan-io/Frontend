@@ -11,7 +11,9 @@ export default function PostPurchasePage() {
   const [discountCode, setDiscountCode] = useState("");
   const [galleryData, setGalleryData] = useState([]);
   const [supplier, setSupplier] = useState("");
+  const [orderId, setOrderId] = useState("");
   const store = router.query.store;
+  console.log(router.query)
 
   useEffect(() => {
     if (!store) return;
@@ -22,6 +24,10 @@ export default function PostPurchasePage() {
       setLoading(false);
     });
   }, [store]);
+
+  useEffect(() => {
+    setOrderId(router.query.orderId);
+  }, [router.query]);
 
   const getProducts = async () => {
     const result = await getPartners(store[0]);
@@ -43,7 +49,7 @@ export default function PostPurchasePage() {
       <Gallery
         galleryData={galleryData}
         supplier={supplier}
-        customerId={store ? store[store.length - 1] : null}
+        customerId={orderId}
       />
       <br />
       <br />

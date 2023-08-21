@@ -4,6 +4,8 @@
   if (info.includes("bin")) {
     window.location.reload();
   } else if (document.referrer.includes(store)) {
-    window.location = `http://localhost:3000/${store + info}`;
+    window.location = `http://localhost:3000/${
+      store + info
+    }?orderId={{ order_number }}`;
   }
 </script>
