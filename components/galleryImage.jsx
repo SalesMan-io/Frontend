@@ -22,7 +22,9 @@ export function GalleryImage({ data }) {
     adjustToScreenSize();
   });
 
-  adjustToScreenSize();
+  setTimeout(() => {
+    adjustToScreenSize();
+  }, 0);
 
   const wrapString = (text, lineLimit, setText) => {
     const varToString = (varObj) => Object.keys(varObj)[0];
@@ -54,11 +56,6 @@ export function GalleryImage({ data }) {
           lastLine.substring(0, lastLine.length - i) + "...";
         if (getTextWidth(truncatedString, font) < clientWidth - 25) {
           lineArray[lineLimit - 1] = truncatedString;
-          if (lineArray[0].includes("Signature")) {
-            console.log(lineLimit);
-            console.log(clientWidth, size.width);
-            console.log(lineArray);
-          }
           break;
         }
       }
@@ -120,12 +117,13 @@ export function GalleryImage({ data }) {
         <h3 style={styles.infoText}>{data.supplier}</h3>
         {data.discountPercent ? (
           <>
-            <h4 style={{ ...styles.infoText, color: "red" }}>
-              {formatter.format(getDiscount(data.price, data.discountPercent))}{" "}
-              {data.discountPercent}%off
-            </h4>
-            <h4 style={{ ...styles.infoText, color: "grey" }}>
-              <s>{formatter.format(data.price)}</s>
+            <h4 style={styles.infoText}>
+              <s style={{ color: "grey" }}>{formatter.format(data.price)}</s>{" "}
+              <text style={{ color: "red" }}>
+                {formatter.format(
+                  getDiscount(data.price, data.discountPercent)
+                )}
+              </text>
             </h4>
           </>
         ) : (
