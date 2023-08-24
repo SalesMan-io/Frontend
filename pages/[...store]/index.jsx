@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { Gallery } from "../../components/gallery";
 import { getPartners } from "../../api/api";
 import { useRouter } from "next/router";
-import { Button } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import Loading from "../../components/loading";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function PostPurchasePage() {
   const router = useRouter();
@@ -12,8 +15,8 @@ export default function PostPurchasePage() {
   const [galleryData, setGalleryData] = useState([]);
   const [supplier, setSupplier] = useState("");
   const [orderId, setOrderId] = useState("");
+  const [storeName, setStoreName] = useState("");
   const store = router.query.store;
-  console.log(router.query)
 
   useEffect(() => {
     if (!store) return;
@@ -21,6 +24,7 @@ export default function PostPurchasePage() {
       setDiscountCode(data.suppliers[0].discountCode);
       setSupplier(data.suppliers[0].name);
       setGalleryData(data.suppliers[0].products);
+      setStoreName(data.name);
       setLoading(false);
     });
   }, [store]);
@@ -35,15 +39,28 @@ export default function PostPurchasePage() {
   };
 
   return (
-    <div>
-      <h1 level={1}>Checkout these products from {supplier}</h1>
-      <p>These are some of our favourite products from our partnered stores</p>
-      {discountCode && (
-        <p>
-          Use the code <text style={{ color: "red" }}>{discountCode}</text> to
-          enjoy special discounts
-        </p>
-      )}
+    <div className={inter.className} style={{ margin: 20 }}>
+      <h1>{storeName}</h1>
+      <h2>You've paid for your order</h2>
+      <Button
+        style={{ textTransform: "none" }}
+        onClick={() => {
+          window.location = "https://" + store.join("/");
+        }}
+      >
+        View order confirmation {">"}
+      </Button>
+      <Divider />
+      <h1>Checkout these products from {supplier}</h1>
+      <p>
+        These are some of our favourite products from our partnered stores.{" "}
+        {discountCode && (
+          <text>
+            Use the code <text style={{ color: "red" }}>{discountCode}</text> to
+            enjoy special discounts!
+          </text>
+        )}
+      </p>
       <br />
       {loading && <Loading />}
       <Gallery
@@ -53,13 +70,6 @@ export default function PostPurchasePage() {
       />
       <br />
       <br />
-      <Button
-        onClick={() => {
-          window.location = "https://" + store.join("/");
-        }}
-      >
-        Continue to order status page
-      </Button>
       <br />
       <br />
     </div>

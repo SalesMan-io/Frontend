@@ -1,4 +1,4 @@
-import { Card, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { GalleryImage } from "./galleryImage";
 
 export function Gallery({ galleryData, supplier, customerId }) {
@@ -10,13 +10,13 @@ export function Gallery({ galleryData, supplier, customerId }) {
     window.location.protocol + "//" + window.location.host;
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
       {galleryData.map((data, i) => {
         return (
           <Grid item xs={12} sm={4} md={3} lg={2} xl={2} key={i}>
-            <Card
-              style={styles.productContainer}
+            <div
               key={i}
+              style={styles.productContainer}
               onClick={() => {
                 window.open(
                   `${redirectUrl}/link/${data.link}/${customerId}`,
@@ -25,7 +25,7 @@ export function Gallery({ galleryData, supplier, customerId }) {
               }}
             >
               <GalleryImage data={data} />
-            </Card>
+            </div>
           </Grid>
         );
       })}

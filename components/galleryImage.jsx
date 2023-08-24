@@ -7,14 +7,15 @@ export function GalleryImage({ data }) {
     currency: "USD",
   });
 
-  const [size, setSize] = useState({ width: 0, height: 0 });
   const [name, setName] = useState(data.name);
   const [description, setDescription] = useState(data.description);
+  const [width, setWidth] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState(0);
 
   const adjustToScreenSize = () => {
     setTimeout(() => {
       wrapString({ name: data.name }, 1, setName);
-      wrapString({ description: data.description }, 3, setDescription);
+      wrapString({ description: data.description }, 2, setDescription);
     }, 0);
   };
 
@@ -29,8 +30,8 @@ export function GalleryImage({ data }) {
   const wrapString = (text, lineLimit, setText) => {
     const varToString = (varObj) => Object.keys(varObj)[0];
     const stringVariable = varToString(text);
-    const clientWidth =
-      size.width && document.getElementById("description").clientWidth;
+    const clientWidth = document.getElementById("measure").clientWidth;
+    setWidth(clientWidth);
     const font = getCanvasFont(document.getElementById(stringVariable));
     const stringArray = text[stringVariable].split(" ");
     const lineArray = [];
@@ -42,7 +43,7 @@ export function GalleryImage({ data }) {
         lineArray[lineArray.length - 1] + " " + stringArray[i];
       if (
         lineArray.length &&
-        getTextWidth(possibleLine, font) < clientWidth - 25
+        getTextWidth(possibleLine, font) < clientWidth - 5
       ) {
         lineArray[lineArray.length - 1] = possibleLine;
       } else {
@@ -54,7 +55,7 @@ export function GalleryImage({ data }) {
       for (let i = 0; i < lastLine.length; i++) {
         const truncatedString =
           lastLine.substring(0, lastLine.length - i) + "...";
-        if (getTextWidth(truncatedString, font) < clientWidth - 25) {
+        if (getTextWidth(truncatedString, font) < clientWidth - 5) {
           lineArray[lineLimit - 1] = truncatedString;
           break;
         }
@@ -91,39 +92,40 @@ export function GalleryImage({ data }) {
 
   return (
     <div>
-      {size && !size.width && !size.height ? (
+      <p id={"measure"}>{String(" ").repeat(100)}</p>
+      {!aspectRatio ? (
         <Image
           loader={() => data.image}
           src={data.image}
           layout="fill"
-          objectFit="contain"
-          onLoadingComplete={({ naturalWidth, naturalHeight }) => {
-            setSize({ width: naturalWidth, height: naturalHeight });
+          objectFit="cover"
+          onLoad={(e) => {
+            setAspectRatio(e.target.naturalWidth / e.target.naturalHeight);
           }}
         />
       ) : (
         <Image
           loader={() => data.image}
           src={data.image}
-          width={size.width}
-          height={size.height}
+          width={width ? width : 0}
+          height={width && aspectRatio ? width / aspectRatio : 0}
         />
       )}
       <div style={styles.productInfo}>
-        <h2 id={"name"} style={styles.infoText}>
+        <h4 id={"name"} style={styles.infoText}>
           {name}
-        </h2>
-        <h3 style={styles.infoText}>{data.supplier}</h3>
+        </h4>
+        <h5 style={styles.infoText}>{data.supplier}</h5>
         {data.discountPercent ? (
           <>
-            <h4 style={styles.infoText}>
+            <h5 style={styles.infoText}>
               <s style={{ color: "grey" }}>{formatter.format(data.price)}</s>{" "}
               <text style={{ color: "red" }}>
                 {formatter.format(
                   getDiscount(data.price, data.discountPercent)
                 )}
               </text>
-            </h4>
+            </h5>
           </>
         ) : (
           <h4 style={styles.infoText}>{formatter.format(data.price)}</h4>
@@ -143,12 +145,10 @@ const styles = {
     alignItems: "flex-start",
     width: "100%",
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   infoText: {
     margin: 0,
-    paddingLeft: 10,
-    paddingRight: 10,
     paddingTop: 5,
     paddingBottom: 5,
     textAlign: "left",
