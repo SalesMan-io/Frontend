@@ -19,7 +19,7 @@ export default function PostPurchasePage() {
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
   const store = router.query.store;
-  const hardCodeName = "Kids Embrace";
+  const hardCodeName = "My Store";
 
   useEffect(() => {
     setWidth(window.innerWidth);

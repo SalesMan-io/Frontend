@@ -4,8 +4,23 @@
   if (info.includes("bin")) {
     window.location.reload();
   } else if (document.referrer.includes(store)) {
-    window.location = `http://localhost:3000/${
-      store + info
-    }?orderId={{ order_number }}`;
+    (async () => {
+      const response = await fetch(
+        `http://localhost/partner/shouldRedirect/${store}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const myJson = await response.json();
+      if (!myJson.shouldRedirect) {
+        return;
+      }
+      window.location = `http://localhost:3000/${
+        store + info
+      }?orderId={{ order_number }}`;
+    })();
   }
 </script>
