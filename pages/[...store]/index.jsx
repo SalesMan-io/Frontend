@@ -22,7 +22,8 @@ export default function PostPurchasePage() {
   const [width, setWidth] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const store = router.query.store;
-  const totalProductCount = 12;
+  const url = store ? "https://" + store.join("/") : "";
+  const totalProductCount = 12; 
 
   const getRandom = (arr, n) => {
     var len = arr.length;
@@ -130,7 +131,7 @@ export default function PostPurchasePage() {
     const interval = setInterval(() => {
       setTimer((timer) => {
         if (timer <= 0) {
-          window.location = "https://" + store.join("/");
+          window.location = url;
         }
         return timer - 1;
       });
@@ -145,7 +146,7 @@ export default function PostPurchasePage() {
       <Button
         style={{ textTransform: "none" }}
         onClick={() => {
-          window.location = "https://" + store.join("/");
+          window.location = url;
         }}
       >
         View order confirmation {">"}
