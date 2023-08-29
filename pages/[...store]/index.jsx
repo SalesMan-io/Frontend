@@ -37,7 +37,6 @@ export default function PostPurchasePage() {
     if (!router.isReady) return;
     const store = router.query.store;
     setThankYouUrl("https://" + store.join("/"));
-    console.log("https://" + store.join("/"))
     getProducts(store).then((data) => {
       const supplierProductCount = Math.floor(
         totalProductCount / data.suppliers.length
@@ -134,7 +133,7 @@ export default function PostPurchasePage() {
     const interval = setInterval(() => {
       setTimer((timer) => {
         if (timer <= 0) {
-          window.location = thankYouUrl;
+          setTimer(300);
         }
         return timer - 1;
       });
