@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { Gallery } from "../../components/gallery";
 import { getPartners } from "../../api/api";
 import { useRouter } from "next/router";
-import { Button, Divider, TextField } from "@mui/material";
+import {
+  Button,
+  Divider,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  TextField,
+} from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
 
@@ -11,15 +18,28 @@ const inter = Inter({ subsets: ["latin"] });
 export default function PostPurchasePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [discountCode, setDiscountCode] = useState("");
   const [galleryData, setGalleryData] = useState([]);
-  const [supplier, setSupplier] = useState("");
   const [orderId, setOrderId] = useState("");
   const [storeName, setStoreName] = useState("");
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
+  cont [discountCode, setDiscountCode] = useState("");
   const store = router.query.store;
   const hardCodeName = "My Store";
+  const totalProductCount = 12;
+
+  const getRandom = (arr, n) => {
+    var len = arr.length;
+    n = Math.max(Math.min(n, len), 0);
+    var result = new Array(n);
+    var taken = new Array(len);
+    while (n--) {
+      var x = Math.floor(Math.random() * len);
+      result[n] = arr[x in taken ? taken[x] : x];
+      taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+  };
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -31,10 +51,36 @@ export default function PostPurchasePage() {
   useEffect(() => {
     if (!store) return;
     getProducts().then((data) => {
-      setDiscountCode(data.suppliers[1].discountCode);
-      setSupplier(data.suppliers[1].name);
-      setGalleryData(data.suppliers[1].products);
-      setStoreName(data.name === "My Store" ? hardCodeName : data.name);
+      const supplierProductCount = Math.floor(
+        totalProductCount / data.suppliers.length
+      );
+      const galleryData = [];
+      data.suppliers.forEach((supplier) => {
+        const products = getRandom(supplier.products, supplierProductCount);
+        products.forEach((product) => {
+          product.supplier = supplier.name;
+          product.discountCode = supplier.discountCode;
+        });
+        galleryData.push(...products);
+      });
+      if (galleryData.length < totalProductCount) {
+        const remaining = totalProductCount - galleryData.length;
+        const products = getRandom(
+          data.suppliers[data.suppliers.length - 1].products.filter(
+            (item) => !galleryData.includes(item)
+          ),
+          remaining
+        );
+        products.forEach((product) => {
+          product.supplier = data.suppliers[data.suppliers.length - 1].name;
+          product.discountCode =
+            data.suppliers[data.suppliers.length - 1].discountCode;
+        });
+        galleryData.push(...products);
+      }
+      setGalleryData(galleryData);
+      setDiscountCode(data.suppliers[0].discountCode);
+      setStoreName(data.name);
       setLoading(false);
     });
   }, [store]);
@@ -113,7 +159,7 @@ export default function PostPurchasePage() {
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <div>
-          <h1>Checkout these products from {supplier}</h1>
+          <h1>Checkout these limited deals!</h1>
           <p>
             These are some of our favourite products from our partnered stores.{" "}
             {discountCode && (
@@ -146,11 +192,7 @@ export default function PostPurchasePage() {
         )}
       </div>
       {loading && <Loading />}
-      <Gallery
-        galleryData={galleryData}
-        supplier={supplier}
-        customerId={orderId}
-      />
+      <Gallery galleryData={galleryData} customerId={orderId} />
       <br />
       <br />
       <br />

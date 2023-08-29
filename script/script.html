@@ -6,7 +6,7 @@
   } else if (document.referrer.includes(store)) {
     (async () => {
       const response = await fetch(
-        `http://localhost/partner/shouldRedirect/${store}`,
+        `https://backend-production-f79a.up.railway.app/shouldRedirect/${store}`,
         {
           method: "GET",
           headers: {
@@ -18,7 +18,7 @@
       if (!myJson.shouldRedirect) {
         return;
       }
-      window.location = `http://localhost:3000/${
+      window.location = `https://selby-cross-sell.vercel.app/${
         store + info
       }?orderId={{ order_number }}`;
     })();

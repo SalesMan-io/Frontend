@@ -1,10 +1,7 @@
 import { Grid } from "@mui/material";
 import { GalleryImage } from "./galleryImage";
 
-export function Gallery({ galleryData, supplier, customerId }) {
-  galleryData.forEach((data) => {
-    data.supplier = supplier;
-  });
+export function Gallery({ galleryData, customerId }) {
   const redirectUrl =
     typeof window !== "undefined" &&
     window.location.protocol + "//" + window.location.host;
