@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function GalleryImage({ data }) {
   const formatter = new Intl.NumberFormat("en-US", {

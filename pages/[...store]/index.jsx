@@ -5,9 +5,6 @@ import { useRouter } from "next/router";
 import {
   Button,
   Divider,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
   TextField,
 } from "@mui/material";
 import Loading from "../../components/loading";
@@ -25,7 +22,6 @@ export default function PostPurchasePage() {
   const [width, setWidth] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const store = router.query.store;
-  const hardCodeName = "My Store";
   const totalProductCount = 12;
 
   const getRandom = (arr, n) => {
