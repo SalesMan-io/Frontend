@@ -17,8 +17,7 @@ export default function PostPurchasePage() {
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
-  const store = router.query.store;
-  const url = store ? "https://" + store.join("/") : "";
+  const [thankYouUrl, setThankYouUrl] = useState("");
   const totalProductCount = 12;
 
   const getRandom = (arr, n) => {
@@ -33,17 +32,13 @@ export default function PostPurchasePage() {
     }
     return result;
   };
-
+    
   useEffect(() => {
-    setWidth(window.innerWidth);
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!store) return;
-    getProducts().then((data) => {
+    if (!router.isReady) return;
+    const store = router.query.store;
+    setThankYouUrl("https://" + store.join("/"));
+    console.log("https://" + store.join("/"))
+    getProducts(store).then((data) => {
       const supplierProductCount = Math.floor(
         totalProductCount / data.suppliers.length
       );
@@ -76,15 +71,27 @@ export default function PostPurchasePage() {
       setStoreName(data.name);
       setLoading(false);
     });
-  }, [store]);
+  }, [router.isReady]);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
 
   useEffect(() => {
     setOrderId(router.query.orderId);
   }, [router.query]);
 
-  const getProducts = async () => {
-    const result = await getPartners(store[0]);
-    return result.data;
+  const getProducts = async (store) => {
+    try {
+      const result = await getPartners(store[0]);
+      return result.data;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
   };
 
   const Timer = ({ seconds }) => {
@@ -126,9 +133,8 @@ export default function PostPurchasePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((timer) => {
-        if (timer <= 0 && url) {
-          window.location = url;
-          return;
+        if (timer <= 0) {
+          window.location = thankYouUrl;
         }
         return timer - 1;
       });
@@ -143,7 +149,7 @@ export default function PostPurchasePage() {
       <Button
         style={{ textTransform: "none" }}
         onClick={() => {
-          window.location = url;
+          window.location = thankYouUrl;
         }}
       >
         View order confirmation {">"}
