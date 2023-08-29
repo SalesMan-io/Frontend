@@ -47,7 +47,6 @@ export default function PostPurchasePage() {
   useEffect(() => {
     if (!store) return;
     getProducts().then((data) => {
-      console.log(data)
       const supplierProductCount = Math.floor(
         totalProductCount / data.suppliers.length
       );
