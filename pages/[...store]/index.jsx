@@ -158,13 +158,13 @@ export default function PostPurchasePage() {
           <h1>Checkout these limited deals!</h1>
           <p>
             These are some of our favourite products from our partnered stores.{" "}
-            {discountCode && (
+            {/* {discountCode && (
               <text>
                 Use the code{" "}
                 <text style={{ color: "red" }}>{discountCode}</text> to enjoy
                 special discounts!
               </text>
-            )}
+            )} */}
           </p>
           {width <= 600 && (
             <p>

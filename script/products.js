@@ -335,3 +335,56 @@ const lingSkincare = {
         }
     ]
 }
+
+const enerhealth = {
+    "shopifyId": "enerhealthbotanicals.com/",
+    "name": "Enerhealth",
+    "discountCode": "ENERHEALTH",
+    "products": [
+        {
+            "name": "Cocoa Mojo-Organic Mushroom Cocoa",
+            "shopifyId": 0,
+            "price": 16.99,
+            "discountPercent": 0.00,
+            "image": "https://enerhealthbotanicals.com/cdn/shop/products/CocoaMojoNew2023.png?v=1677788754",
+            "url": "https://enerhealthbotanicals.com/products/cocoa-mojo",
+            "description": "Our customers LOVE this product! Rich, creamy hot chocolate with all the benefits of a powerful medicinal mushroom blend. New and Improved with over 100 mg of mushrooms per cup Blend of 6 medicinal mushroom extracts with powerful immune-boosting properties Certified 100% Organic and Vegan with no fillers Peruvian Cocoa non-dutched and all-natural Sweetened with Coconut Palm sugar, low glycemic (kid friendly at bedtime)"
+        },
+        {
+            "name": "Organic Coconut Milk Powder",
+            "shopifyId": 1,
+            "price": 16.99,
+            "discountPercent": 0.00,
+            "image": "https://enerhealthbotanicals.com/cdn/shop/files/CoconutMilkPowder-2000x2000.png?v=1692713301",
+            "url": "https://enerhealthbotanicals.com/products/coconut-milk-powder",
+            "description": "Our Organic Coconut Milk Powder is great for anyone looking for a sweet treat with no sugar. Coconut is one of nature's finest superfoods and this convenient powder delivers all the benefits and great taste of coconut milk while promoting good health and vitality. Certified-Organic with 65% Coconut Oil Vegan, Gluten-Free and Sugar Free with no Fillers 14.1 oz size 26 servings per container Two-year shelf life"
+        },
+        {
+            "name": "Enerfood Organic Green Superfood Powder",
+            "shopifyId": 2,
+            "price": 54.99,
+            "discountPercent": 0.00,
+            "image": "https://enerhealthbotanicals.com/cdn/shop/files/Enerfood-2000x2000.png?v=1692713199",
+            "url": "https://enerhealthbotanicals.com/products/enerfood-super-green-food",
+            "description": "The Best Organic Vegan Green Superfood Powder For those of us that want a supercharged, 100% healthy Organic Green Superfood Powder."
+        },
+        {
+            "name": "Freeze Dried Cordyceps Instant Coffee",
+            "shopifyId": 5,
+            "price": 38.99,
+            "discountPercent": 0.00,
+            "image": "https://enerhealthbotanicals.com/cdn/shop/files/CordyceptsNewFD.png?v=1691158306",
+            "url": "https://enerhealthbotanicals.com/products/freeze-dried-cordyceps-instant-coffee",
+            "description": "Discover the benefits of freeze-dried instant Cordyceps coffee exclusively from EnerHealth! Unparalleled convenience that offers improved focus and clarity without the mushroom taste."
+        },
+        {
+            "name": "Vacuum Sealed Enerfood Green Superfood Powder",
+            "shopifyId": 6,
+            "price": 54.99,
+            "discountPercent": 0.00,
+            "image": "https://enerhealthbotanicals.com/cdn/shop/products/vacenerfood.jpg?v=1614901416",
+            "url": "https://enerhealthbotanicals.com/products/vacuum-sealed-enerfood-super-green-energy-drink",
+            "description": "The Best Organic Vegan Green Superfood Powder ADD TO CART & SAVE 15% (see discount in cart) For those of us that want a supercharged, 100% healthy Organic Green Superfood Powder. Enerfood is 100% Certified Organic & Non-GMO:"
+        }
+    ]
+}
