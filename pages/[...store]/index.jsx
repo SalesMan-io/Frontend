@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { Gallery } from "../../components/gallery";
 import { getPartners } from "../../api/api";
 import { useRouter } from "next/router";
-import {
-  Button,
-  Divider,
-  TextField,
-} from "@mui/material";
+import { Button, Divider, TextField } from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
 
@@ -23,7 +19,7 @@ export default function PostPurchasePage() {
   const [discountCode, setDiscountCode] = useState("");
   const store = router.query.store;
   const url = store ? "https://" + store.join("/") : "";
-  const totalProductCount = 12; 
+  const totalProductCount = 12;
 
   const getRandom = (arr, n) => {
     var len = arr.length;
@@ -130,8 +126,9 @@ export default function PostPurchasePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((timer) => {
-        if (timer <= 0) {
+        if (timer <= 0 && url) {
           window.location = url;
+          return;
         }
         return timer - 1;
       });
