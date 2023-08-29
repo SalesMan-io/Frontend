@@ -2,7 +2,7 @@ import { pingServer } from "./api";
 
 let mainUrl = process.env.NEXT_PUBLIC_PROD_URL || "";
 // mainUrl = process.env.REACT_APP_DEV_URL;
-// mainUrl = "http://localhost";
+mainUrl = "http://localhost";
 const railwayBUPUrl = process.env.REACT_APP_BUP_URL;
 const herokuBUPUrl = process.env.REACT_APP_HERO_URL;
 

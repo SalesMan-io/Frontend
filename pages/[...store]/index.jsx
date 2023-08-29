@@ -23,7 +23,7 @@ export default function PostPurchasePage() {
   const [storeName, setStoreName] = useState("");
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
-  cont [discountCode, setDiscountCode] = useState("");
+  const [discountCode, setDiscountCode] = useState("");
   const store = router.query.store;
   const hardCodeName = "My Store";
   const totalProductCount = 12;
@@ -51,6 +51,7 @@ export default function PostPurchasePage() {
   useEffect(() => {
     if (!store) return;
     getProducts().then((data) => {
+      console.log(data)
       const supplierProductCount = Math.floor(
         totalProductCount / data.suppliers.length
       );
