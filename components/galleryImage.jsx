@@ -128,9 +128,9 @@ export function GalleryImage({ data }) {
             </h5>
           </>
         ) : (
-          <h4 style={styles.infoText}>{formatter.format(data.price)}</h4>
+          <h5 style={styles.infoText}>{formatter.format(data.price)}</h5>
         )}
-        <p id={"description"} style={styles.infoText}>
+        <p id={"description"} style={{ ...styles.infoText, color: "grey" }}>
           {description}
         </p>
       </div>

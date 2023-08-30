@@ -283,7 +283,7 @@ const lingSkincare = {
             "name": "Oxygen Plasma Potion (Glow Rejuvenating Solution)",
             "shopifyId": 2,
             "price": 125.00,
-            "discountPercent": 10.00,
+            "discountPercent": 0.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/10_6806bafa-c15d-4e11-bb42-e95f91d8b501_1000x.png?v=1692108185",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/oxygen-plasma-potion",
             "description": "Celebrities swear by it and estheticians can't get enough of this. Oxygen Plasma Potion is made with perfluorodecalin, an innovative oxygenating molecule that instantly soothes and revives dull complexions. Oxygen plasma will help your skin appear radiant and youthful. The result is a glowing, healthy complexion."
@@ -292,7 +292,7 @@ const lingSkincare = {
             "name": "Triple Action Exfoliator",
             "shopifyId": 3,
             "price": 51.00,
-            "discountPercent": 15.00,
+            "discountPercent": 0.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/4_f311b836-4942-4960-b474-2bd63718887b_1000x.png?v=1692108030",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/triple-action-exfoliator",
             "description": "State-of-the-Art ingredients meet Asian beauty secrets in this advanced fusion designed to purify & renew the skin. The triple combination of pineapple enzymes to exfoliate dead cells, crushed almonds to gently abrade away impurities, and honey to soothe & soften skin, creates a perfect blend for a smooth and clear complexion."
@@ -301,7 +301,7 @@ const lingSkincare = {
             "name": "DNA DoNotAge Cellular Youth Extension Cream",
             "shopifyId": 4,
             "price": 105.00,
-            "discountPercent": 10.00,
+            "discountPercent": 15.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/22_1000x.png?v=1692108348",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/dna-donotage-cellular-youth-extension-cream",
             "description": "State-of-the-Art ingredient Renovage™ (Teprenone) is infused with Peptides to create an innovative and potent anti-aging formula to reduce the appearance of fine lines and wrinkles. Teprenone was recognized with a Nobel Prize for its ability to help skin appear healthier looking and younger-acting. The complexion is left smoother, more even, and youthful"
@@ -310,7 +310,7 @@ const lingSkincare = {
             "name": "8 Jewels De-aging Cream (Advanced 8 Anti-aging Complex)",
             "shopifyId": 5,
             "price": 180.00,
-            "discountPercent": 5.00,
+            "discountPercent": 0.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/LingProducts_1000x.png?v=1692108356",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/8-jewels-de-aging-cream-advanced-8-anti-aging-complex",
             "description": "The Best of the Advanced Anti-aging innovations in 1 Dream Cream! Formulated with LING Advanced 8 Anti-aging Essentials including Squalane and Hyaluronic Acid to soften and Hydrate, Oxygen to revive, Gemstone Minerals provide anti-oxidant function and skin nutrition, Adaptogens to de-stress, Apple Stem Cells to revitalize, Placenta & Peptides to firm and Soapberry to energize."
@@ -319,7 +319,7 @@ const lingSkincare = {
             "name": "Purifying Facial Cleanser",
             "shopifyId": 6,
             "price": 58.00,
-            "discountPercent": 5.00,
+            "discountPercent": 0.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/2_187d7ff1-0bf7-45d9-860d-6d01ebc82e55_1000x.png?v=1692108024",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/purifying-facial-cleanser",
             "description": "State-of-the-art ingredients meet Asian beauty secrets in this advanced fusion of coconut oil to cleanse and rose water to soothe. Purifying Facial Cleanser is surfactant-free, gentle & pH balanced to thoroughly cleanse the skin without stripping away the skin’s natural moisture. Skin is left clean & soft. "
@@ -328,7 +328,7 @@ const lingSkincare = {
             "name": "Vitamin K (Anti-redness Calming Solution)",
             "shopifyId": 7,
             "price": 108.00,
-            "discountPercent": 15.00,
+            "discountPercent": 0.00,
             "image": "https://www.lingskincare.com/cdn/shop/products/LingProducts_4_1000x.png?v=1692108191",
             "url": "https://www.lingskincare.com/collections/best-sellers/products/vitamin-k-anti-sensitivity-calming-serum",
             "description": "Anti-redness Calming Solution Vitamin K helps the appearance of broken capillaries, bruising, redness, and sensitivity. A concoction of natural Asian herbs has been carefully selected for soothing properties."

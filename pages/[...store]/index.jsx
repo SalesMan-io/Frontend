@@ -67,6 +67,9 @@ export default function PostPurchasePage() {
         });
         galleryData.push(...products);
       }
+      galleryData.sort((a, b) => {
+        return -(a.discountPercent - b.discountPercent);
+      });
       setGalleryData(galleryData);
       setDiscountCode(data.suppliers[0].discountCode);
       setStoreName(data.name);
