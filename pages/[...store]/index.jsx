@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { Gallery } from "../../components/gallery";
 import { getPartners } from "../../api/api";
-import { useRouter } from "next/router";
 import { Button, Divider, TextField } from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
+import { useSearchParams } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function PostPurchasePage() {
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [galleryData, setGalleryData] = useState([]);
-  const [orderId, setOrderId] = useState("");
   const [storeName, setStoreName] = useState("");
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
-  const [discountCode, setDiscountCode] = useState("");
-  const [thankYouUrl, setThankYouUrl] = useState("");
-  const [store, setStore] = useState();
+  const store = searchParams.get("store");
+  const thankYouUrl = store
+    ? "https://" + searchParams.getAll("store").join("/")
+    : "";
   const totalProductCount = 12;
+  const orderId = searchParams.get("orderId");
 
   const getRandom = (arr, n) => {
     var len = arr.length;
@@ -35,11 +36,10 @@ export default function PostPurchasePage() {
   };
 
   useEffect(() => {
-    if (!router.isReady) return;
-    const store = router.query.store;
-    setStore(store[0]);
-    setThankYouUrl("https://" + store.join("/"));
-    getProducts(store).then((data) => {
+    if (!store) {
+      return;
+    }
+    getProducts().then((data) => {
       const supplierProductCount = Math.floor(
         totalProductCount / data.suppliers.length
       );
@@ -71,11 +71,10 @@ export default function PostPurchasePage() {
         return -(a.discountPercent - b.discountPercent);
       });
       setGalleryData(galleryData);
-      setDiscountCode(data.suppliers[0].discountCode);
       setStoreName(data.name);
       setLoading(false);
     });
-  }, [router.isReady]);
+  }, [store]);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -84,13 +83,9 @@ export default function PostPurchasePage() {
     });
   }, []);
 
-  useEffect(() => {
-    setOrderId(router.query.orderId);
-  }, [router.query]);
-
-  const getProducts = async (store) => {
+  const getProducts = async () => {
     try {
-      const result = await getPartners(store[0]);
+      const result = await getPartners(store);
       return result.data;
     } catch (e) {
       console.log(e);
@@ -135,27 +130,29 @@ export default function PostPurchasePage() {
   };
 
   useEffect(() => {
+    if (!thankYouUrl) {
+      return;
+    }
     const interval = setInterval(() => {
       setTimer((timer) => {
         if (timer <= 0) {
-          setTimer(300);
+          navigateToThankYou();
         }
-        return timer - 1;
+        return Math.max(0, timer - 1);
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [thankYouUrl]);
+
+  const navigateToThankYou = () => {
+    window.location.href = thankYouUrl;
+  };
 
   return (
     <div className={inter.className} style={{ margin: 20 }}>
       <h1>{storeName}</h1>
       <h2>You've paid for your order</h2>
-      <Button
-        style={{ textTransform: "none" }}
-        onClick={() => {
-          window.location = thankYouUrl;
-        }}
-      >
+      <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>
         View order confirmation {">"}
       </Button>
       <Divider />
@@ -163,16 +160,9 @@ export default function PostPurchasePage() {
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <div>
-          <h1>Checkout these limited deals!</h1>
+          <h1>You've earned these exclusive discounts!</h1>
           <p>
-            These are some of our favourite products from our partnered stores.{" "}
-            {/* {discountCode && (
-              <text>
-                Use the code{" "}
-                <text style={{ color: "red" }}>{discountCode}</text> to enjoy
-                special discounts!
-              </text>
-            )} */}
+            Checkout these products from our partnered stores.{" "}
           </p>
           {width <= 600 && (
             <p>

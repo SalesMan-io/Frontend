@@ -93,6 +93,32 @@ export function GalleryImage({ data }) {
   return (
     <div>
       <p id={"measure"}>{String(" ").repeat(100)}</p>
+      {data.discountPercent > 0 ? (
+        <div
+          style={{
+            padding: 5,
+            paddingTop: 2,
+            paddingBottom: 2,
+            backgroundColor: "lightgrey",
+            fontSize: Math.min(12, width / 25),
+            textAlign: "center",
+          }}
+        >
+          USE CODE: <b>{data.discountCode}</b> SAVE{" "}
+          <b>{data.discountPercent}%</b>
+        </div>
+      ) : (
+        <div
+          style={{
+            fontSize: Math.min(12, width / 25),
+            padding: 5,
+            paddingTop: 2,
+            paddingBottom: 2,
+          }}
+        >
+          <br />
+        </div>
+      )}
       {!aspectRatio ? (
         <Image
           loader={() => data.image}
