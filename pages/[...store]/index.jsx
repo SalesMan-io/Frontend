@@ -18,6 +18,7 @@ export default function PostPurchasePage() {
   const [width, setWidth] = useState(0);
   const [discountCode, setDiscountCode] = useState("");
   const [thankYouUrl, setThankYouUrl] = useState("");
+  const [store, setStore] = useState();
   const totalProductCount = 12;
 
   const getRandom = (arr, n) => {
@@ -32,10 +33,11 @@ export default function PostPurchasePage() {
     }
     return result;
   };
-    
+
   useEffect(() => {
     if (!router.isReady) return;
     const store = router.query.store;
+    setStore(store[0]);
     setThankYouUrl("https://" + store.join("/"));
     getProducts(store).then((data) => {
       const supplierProductCount = Math.floor(
@@ -191,7 +193,7 @@ export default function PostPurchasePage() {
         )}
       </div>
       {loading && <Loading />}
-      <Gallery galleryData={galleryData} customerId={orderId} />
+      <Gallery galleryData={galleryData} store={store} customerId={orderId} />
       <br />
       <br />
       <br />

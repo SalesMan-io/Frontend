@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { GalleryImage } from "./galleryImage";
 
-export function Gallery({ galleryData, customerId }) {
+export function Gallery({ galleryData, store, customerId }) {
   const redirectUrl =
     typeof window !== "undefined" &&
     window.location.protocol + "//" + window.location.host;
@@ -16,7 +16,7 @@ export function Gallery({ galleryData, customerId }) {
               style={styles.productContainer}
               onClick={() => {
                 window.open(
-                  `${redirectUrl}/link/${data.link}/${customerId}`,
+                  `${redirectUrl}/link/${data.link}/${store}/${customerId}`,
                   "_blank"
                 );
               }}

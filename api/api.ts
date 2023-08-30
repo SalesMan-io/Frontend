@@ -48,7 +48,7 @@ const incrementLinkClicks = async (id: String[]) => {
       `${await baseUrl()}/link/incrementClicks`,
       {
         id: id[0],
-        customerId: id.length > 1 ? id[1] : "",
+        customerId: id.length > 1 ? id.slice(1).join("/") : "",
       },
       {
         headers: {
