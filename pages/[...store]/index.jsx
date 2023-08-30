@@ -160,7 +160,7 @@ export default function PostPurchasePage() {
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <div>
-          <h1>You've earned these exclusive discounts!</h1>
+          <h1>You've earned these exclusive deals!</h1>
           <p>
             Checkout these products from our partnered stores.{" "}
           </p>
