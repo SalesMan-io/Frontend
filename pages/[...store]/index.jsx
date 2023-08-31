@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Gallery } from "../../components/gallery";
-import { getPartners } from "../../api/api";
+import { getPartners, logUnloadPage } from "../../api/api";
 import { Button, Divider, TextField } from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import posthog from "posthog-js";
+import baseUrl from "../../api/baseUrl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,9 +33,24 @@ export default function PostPurchasePage() {
       setStoreName(data.name);
       setLoading(false);
     });
+    window.addEventListener('pagehide', () => {
+      fetch(`${baseUrl}/partner/pageUnloaded`, {
+        keepalive: true,
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        },
+        body: JSON.stringify({ shopifyId: store, orderId: orderId }),
+      });
+    });
   }, [store]);
 
   useEffect(() => {
+    posthog.init("phc_2ae7wkmYFn97yhwqRkyfk186LsRqsVBeNYN2RfDfXKt", {
+      api_host: "https://app.posthog.com",
+    });
     setWidth(window.innerWidth);
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
@@ -100,13 +118,27 @@ export default function PostPurchasePage() {
     return () => clearInterval(interval);
   }, [thankYouUrl]);
 
-  const navigateToThankYou = () => {
-    window.location.href = thankYouUrl;
+  const navigateToThankYou = async () => {
+    await logUnloadPage(store, orderId);
+    // window.location.href = thankYouUrl;
   };
 
   return (
     <div className={inter.className} style={{ margin: 20 }}>
-      <h1>{storeName}</h1>
+      {/* <h1>{"Enerhealth"}</h1> */}
+      <Image
+        loader={() =>
+          "https://enerhealthbotanicals.com/cdn/shop/files/New_Enerhealth_Logo_-_transparent_bkgd_1440_x_345_px_1_300x300_d1d5c59a-b1a6-4cfe-9f21-0d3ff709d40c.png?v=1683618248&width=300"
+        }
+        src={
+          "https://enerhealthbotanicals.com/cdn/shop/files/New_Enerhealth_Logo_-_transparent_bkgd_1440_x_345_px_1_300x300_d1d5c59a-b1a6-4cfe-9f21-0d3ff709d40c.png?v=1683618248&width=300"
+        }
+        width={306}
+        height={70}
+        style={{
+          marginLeft: -25,
+        }}
+      />
       <h2>You've paid for your order</h2>
       <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>
         View order confirmation {">"}
@@ -117,9 +149,7 @@ export default function PostPurchasePage() {
       >
         <div>
           <h1>You've earned these exclusive offers!</h1>
-          <p>
-            Checkout these products from our partnered stores.{" "}
-          </p>
+          <p>Checkout these products from our partnered stores. </p>
           {width <= 600 && (
             <p>
               Limited time offer expires in <b>{timerText(timer)}</b>
