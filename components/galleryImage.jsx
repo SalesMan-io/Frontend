@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export function GalleryImage({ data }) {
+export function GalleryImage({ data, index, mostCommonAspectRatio, setAspectRatios }) {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -127,6 +127,12 @@ export function GalleryImage({ data }) {
           objectFit="cover"
           onLoad={(e) => {
             setAspectRatio(e.target.naturalWidth / e.target.naturalHeight);
+            setAspectRatios((aspectRatios) => {
+              const newAspectRatios = [...aspectRatios];
+              newAspectRatios[index] =
+                e.target.naturalWidth / e.target.naturalHeight;
+              return newAspectRatios;
+            });
           }}
         />
       ) : (
@@ -134,7 +140,7 @@ export function GalleryImage({ data }) {
           loader={() => data.image}
           src={data.image}
           width={width ? width : 0}
-          height={width && aspectRatio ? width / aspectRatio : 0}
+          height={width && mostCommonAspectRatio ? width / mostCommonAspectRatio : 0}
         />
       )}
       <div style={styles.productInfo}>
