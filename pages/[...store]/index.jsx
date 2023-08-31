@@ -5,7 +5,6 @@ import { Button, Divider, TextField } from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
 import posthog from "posthog-js";
 import baseUrl from "../../api/baseUrl";
 
@@ -16,6 +15,7 @@ export default function PostPurchasePage() {
   const [loading, setLoading] = useState(true);
   const [galleryData, setGalleryData] = useState([]);
   const [storeName, setStoreName] = useState("");
+  const [hasLogo, setHasLogo] = useState(true);
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
   const store = searchParams.get("store");
@@ -33,12 +33,12 @@ export default function PostPurchasePage() {
       setStoreName(data.name);
       setLoading(false);
     });
-    window.addEventListener('pagehide', () => {
+    window.addEventListener("pagehide", () => {
       fetch(`${baseUrl}/partner/pageUnloaded`, {
         keepalive: true,
-        method: 'POST',
+        method: "POST",
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         },
@@ -125,30 +125,35 @@ export default function PostPurchasePage() {
 
   return (
     <div className={inter.className} style={{ margin: 20 }}>
-      <h1>{storeName}</h1>
-      {/* <Image
-        loader={() =>
-          "https://enerhealthbotanicals.com/cdn/shop/files/New_Enerhealth_Logo_-_transparent_bkgd_1440_x_345_px_1_300x300_d1d5c59a-b1a6-4cfe-9f21-0d3ff709d40c.png?v=1683618248&width=300"
-        }
-        src={
-          "https://enerhealthbotanicals.com/cdn/shop/files/New_Enerhealth_Logo_-_transparent_bkgd_1440_x_345_px_1_300x300_d1d5c59a-b1a6-4cfe-9f21-0d3ff709d40c.png?v=1683618248&width=300"
-        }
-        width={306}
-        height={70}
-        style={{
-          marginLeft: -25,
-        }}
-      /> */}
-      <h2>You've paid for your order</h2>
-      <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>
-        View order confirmation {">"}
-      </Button>
+      {hasLogo ? (
+        <img
+          src={`/${store}.png`}
+          height={70}
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            window.open("https://" + store, "_blank");
+          }}
+          onError={() => {
+            setHasLogo(false);
+          }}
+        />
+      ) : (
+        <h1>{storeName}</h1>
+      )}
+      <div style={{ marginLeft: 0 }}>
+        <h2>You've paid for your order</h2>
+        <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>
+          View order confirmation {">"}
+        </Button>
+      </div>
       <Divider />
       <div
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <div>
-          <h1>You've earned these exclusive offers!</h1>
+          <h1>You earned these exclusive offers!</h1>
           <p>Checkout these products from our partnered stores. </p>
           {width <= 600 && (
             <p>
