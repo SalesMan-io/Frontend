@@ -62,10 +62,10 @@ const incrementLinkClicks = async (id: String[]) => {
   }
 };
 
-const getPartners = async (domain: String) => {
+const getPartners = async (domain: String, orderId: String) => {
   try {
     return await axios.get(
-      `${await baseUrl()}/partner/getPartner/${domain}`,
+      `${await baseUrl()}/partner/getPartner/${domain}/${orderId}`,
       {
         headers: {
           "Access-Control-Allow-Origin": "*",

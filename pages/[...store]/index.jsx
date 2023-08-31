@@ -19,58 +19,14 @@ export default function PostPurchasePage() {
   const thankYouUrl = store
     ? "https://" + searchParams.getAll("store").join("/")
     : "";
-  const totalProductCount = 12;
   const orderId = searchParams.get("orderId");
-
-  const getRandom = (arr, n) => {
-    var len = arr.length;
-    n = Math.max(Math.min(n, len), 0);
-    var result = new Array(n);
-    var taken = new Array(len);
-    while (n--) {
-      var x = Math.floor(Math.random() * len);
-      result[n] = arr[x in taken ? taken[x] : x];
-      taken[x] = --len in taken ? taken[len] : len;
-    }
-    return result;
-  };
 
   useEffect(() => {
     if (!store) {
       return;
     }
     getProducts().then((data) => {
-      const supplierProductCount = Math.floor(
-        totalProductCount / data.suppliers.length
-      );
-      const galleryData = [];
-      data.suppliers.forEach((supplier) => {
-        const products = getRandom(supplier.products, supplierProductCount);
-        products.forEach((product) => {
-          product.supplier = supplier.name;
-          product.discountCode = supplier.discountCode;
-        });
-        galleryData.push(...products);
-      });
-      if (galleryData.length < totalProductCount) {
-        const remaining = totalProductCount - galleryData.length;
-        const products = getRandom(
-          data.suppliers[data.suppliers.length - 1].products.filter(
-            (item) => !galleryData.includes(item)
-          ),
-          remaining
-        );
-        products.forEach((product) => {
-          product.supplier = data.suppliers[data.suppliers.length - 1].name;
-          product.discountCode =
-            data.suppliers[data.suppliers.length - 1].discountCode;
-        });
-        galleryData.push(...products);
-      }
-      galleryData.sort((a, b) => {
-        return -(a.discountPercent - b.discountPercent);
-      });
-      setGalleryData(galleryData);
+      setGalleryData(data.galleryData);
       setStoreName(data.name);
       setLoading(false);
     });
@@ -85,7 +41,7 @@ export default function PostPurchasePage() {
 
   const getProducts = async () => {
     try {
-      const result = await getPartners(store);
+      const result = await getPartners(store, orderId);
       return result.data;
     } catch (e) {
       console.log(e);
