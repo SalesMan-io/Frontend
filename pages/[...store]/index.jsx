@@ -125,8 +125,8 @@ export default function PostPurchasePage() {
 
   return (
     <div className={inter.className} style={{ margin: 20 }}>
-      {/* <h1>{"Enerhealth"}</h1> */}
-      <Image
+      <h1>{storeName}</h1>
+      {/* <Image
         loader={() =>
           "https://enerhealthbotanicals.com/cdn/shop/files/New_Enerhealth_Logo_-_transparent_bkgd_1440_x_345_px_1_300x300_d1d5c59a-b1a6-4cfe-9f21-0d3ff709d40c.png?v=1683618248&width=300"
         }
@@ -138,7 +138,7 @@ export default function PostPurchasePage() {
         style={{
           marginLeft: -25,
         }}
-      />
+      /> */}
       <h2>You've paid for your order</h2>
       <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>
         View order confirmation {">"}
