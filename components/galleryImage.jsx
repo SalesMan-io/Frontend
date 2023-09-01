@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export function GalleryImage({ data, index, mostCommonAspectRatio, setAspectRatios }) {
+export function GalleryImage({
+  data,
+  index,
+  mostCommonAspectRatio,
+  setAspectRatios,
+}) {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -139,8 +144,11 @@ export function GalleryImage({ data, index, mostCommonAspectRatio, setAspectRati
         <Image
           loader={() => data.image}
           src={data.image}
+          style={{ objectFit: "contain" }}
           width={width ? width : 0}
-          height={width && mostCommonAspectRatio ? width / mostCommonAspectRatio : 0}
+          height={
+            width && mostCommonAspectRatio ? width / mostCommonAspectRatio : 0
+          }
         />
       )}
       <div style={styles.productInfo}>

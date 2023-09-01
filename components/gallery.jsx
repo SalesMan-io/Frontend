@@ -19,14 +19,14 @@ export function Gallery({ galleryData, store, customerId }) {
       aspectRatios.forEach(function (x) {
         counts[x] = (counts[x] || 0) + 1;
       });
-      const countsArray = Object.values(counts);
-      if (countsArray.length) {
-        const mostCommonAspectRatio = countsArray.reduce((a, b) =>
-          countsArray[a] > counts[b] ? a : b
-        );
-        console.log(mostCommonAspectRatio)
-        setMostCommonAspectRatio(Math.min(1, mostCommonAspectRatio));
-      }
+      const countsKeys = Object.keys(counts);
+      // if (countsKeys.length) {
+      //   const mostCommonAspectRatio = countsKeys.reduce((a, b) =>
+      //   counts[a] > counts[b] ? a : b
+      //   );
+      //   setMostCommonAspectRatio(Math.min(1, mostCommonAspectRatio));
+      // }
+      setMostCommonAspectRatio(Math.min(1, Math.min(...countsKeys)));
     }
   }, [aspectRatios]);
 
