@@ -120,7 +120,7 @@ export default function PostPurchasePage() {
 
   const navigateToThankYou = async () => {
     await logUnloadPage(store, orderId);
-    // window.location.href = thankYouUrl;
+    window.location.href = thankYouUrl;
   };
 
   return (
