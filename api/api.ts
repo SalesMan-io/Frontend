@@ -67,7 +67,7 @@ const getPartners = async (domain: String, orderId: String) => {
     return await axios.get(
       orderId
         ? `${baseUrl}/partner/getPartner/${domain}/${orderId}`
-        : `${baseUrl}/partner/getPartner/${domain}/null}`,
+        : `${baseUrl}/partner/getPartner/${domain}/null`,
       {
         headers: {
           "Access-Control-Allow-Origin": "*",
