@@ -1,9 +1,9 @@
 <script type="text/javascript">
   const store = window.location.host;
   const info = window.location.pathname;
-  if (info.includes("bin")) {
+  if (info.includes("bin") || info.includes("thank_you")) {
     window.location.reload();
-  } else if (document.referrer.includes(store)) {
+  } else if (document.referrer.includes(store) || document.referrer.includes("shop.app")) {
     (async () => {
       const response = await fetch(
         `https://backend-production-fa50.up.railway.app/partner/shouldRedirect/${store}`,
