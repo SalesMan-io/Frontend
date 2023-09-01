@@ -24,7 +24,8 @@ export function Gallery({ galleryData, store, customerId }) {
         const mostCommonAspectRatio = countsArray.reduce((a, b) =>
           countsArray[a] > counts[b] ? a : b
         );
-        setMostCommonAspectRatio(mostCommonAspectRatio);
+        console.log(mostCommonAspectRatio)
+        setMostCommonAspectRatio(Math.min(1, mostCommonAspectRatio));
       }
     }
   }, [aspectRatios]);
