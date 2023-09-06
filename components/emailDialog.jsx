@@ -20,6 +20,7 @@ export default function EmailDialog({ suppliers, store, storeName, orderId }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
+  const [width, setWidth] = useState(0);
   const handleClose = async () => {
     setOpen(false);
     await logEvent(store, orderId, "Email Dialog Closed");
@@ -37,6 +38,10 @@ export default function EmailDialog({ suppliers, store, storeName, orderId }) {
   };
 
   useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
     setTimeout(() => {
       setOpen(true);
     }, 3000);
@@ -115,7 +120,7 @@ export default function EmailDialog({ suppliers, store, storeName, orderId }) {
               color: "white",
             }}
           >
-            Claim Now
+            {width > 600 ? "Claim Now" : "Claim"}
           </Button>
         </div>
         <br />
