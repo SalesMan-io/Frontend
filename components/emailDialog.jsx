@@ -85,7 +85,7 @@ export default function EmailDialog({ suppliers, store, storeName, orderId }) {
           {suppliers.map((supplier) => (
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              label={supplier.name}
+              label={<>{supplier.name} - <b>15%</b> off all products</>}
             />
           ))}
         </FormGroup>
