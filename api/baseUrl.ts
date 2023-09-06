@@ -2,8 +2,8 @@ import { pingServer } from "./api";
 
 let mainUrl = process.env.NEXT_PUBLIC_PROD_URL || "";
 // mainUrl = process.env.NEXT_PUBLIC_PROD_URL;
-// mainUrl = "http://localhost";
-const railwayBUPUrl = process.env.NEXT_PUBLIC_PROD_URL;
+mainUrl = "http://localhost";
+// const railwayBUPUrl = process.env.NEXT_PUBLIC_PROD_URL;
 
 // const baseUrl = async () => {
 //   try {

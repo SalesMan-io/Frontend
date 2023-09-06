@@ -1,14 +1,14 @@
 import { Grid } from "@mui/material";
-import { GalleryImage } from "./galleryImage";
+import GalleryImage from "./galleryImage";
 import { useEffect, useState } from "react";
 
-export function Gallery({ galleryData, store, customerId }) {
+export default function Gallery({ galleryData, store, customerId }) {
   const redirectUrl =
     typeof window !== "undefined" &&
     window.location.protocol + "//" + window.location.host;
 
   const [aspectRatios, setAspectRatios] = useState(
-    Array(galleryData.length).fill(0)
+    Array(galleryData ? galleryData.length : 0).fill(0)
   );
 
   const [mostCommonAspectRatio, setMostCommonAspectRatio] = useState(0);

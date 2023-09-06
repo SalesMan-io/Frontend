@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Gallery } from "../../components/gallery";
-import { getPartners, logUnloadPage } from "../../api/api";
+import Gallery from "../../components/gallery";
+import { getPartners, logEvent } from "../../api/api";
 import { Button, Divider, TextField } from "@mui/material";
 import Loading from "../../components/loading";
 import { Inter } from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import baseUrl from "../../api/baseUrl";
+import EmailDialog from "../../components/emailDialog";
+import Logo from "../../components/logo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +20,7 @@ export default function PostPurchasePage() {
   const [hasLogo, setHasLogo] = useState(true);
   const [timer, setTimer] = useState(300);
   const [width, setWidth] = useState(0);
+  const [suppliers, setSuppliers] = useState([]);
   const store = searchParams.get("store");
   const thankYouUrl = store
     ? "https://" + searchParams.getAll("store").join("/")
@@ -29,12 +32,13 @@ export default function PostPurchasePage() {
       return;
     }
     getProducts().then((data) => {
+      setSuppliers(data.suppliers);
       setGalleryData(data.galleryData);
       setStoreName(data.name);
       setLoading(false);
     });
     window.addEventListener("pagehide", () => {
-      fetch(`${baseUrl}/partner/pageUnloaded`, {
+      fetch(`${baseUrl}/partner/logEvent`, {
         keepalive: true,
         method: "POST",
         headers: {
@@ -42,7 +46,11 @@ export default function PostPurchasePage() {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         },
-        body: JSON.stringify({ shopifyId: store, orderId: orderId }),
+        body: JSON.stringify({
+          shopifyId: store,
+          orderId: orderId,
+          eventName: "Page Unloaded",
+        }),
       });
     });
   }, [store]);
@@ -119,29 +127,14 @@ export default function PostPurchasePage() {
   }, [thankYouUrl]);
 
   const navigateToThankYou = async () => {
-    await logUnloadPage(store, orderId);
+    await logEvent(store, orderId, "Page Unloaded");
     window.location.href = thankYouUrl;
   };
 
   return (
     <div className={inter.className} style={{ margin: 20 }}>
-      {hasLogo ? (
-        <img
-          src={`/${store}.png`}
-          height={70}
-          style={{
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            window.open("https://" + store, "_blank");
-          }}
-          onError={() => {
-            setHasLogo(false);
-          }}
-        />
-      ) : (
-        <h1>{storeName}</h1>
-      )}
+      <EmailDialog suppliers={suppliers} store={store} storeName={storeName} orderId={orderId}/>
+      <Logo store={store} storeName={storeName} height={70} />
       <div style={{ marginLeft: 0 }}>
         <h2>You've paid for your order</h2>
         <Button style={{ textTransform: "none" }} onClick={navigateToThankYou}>

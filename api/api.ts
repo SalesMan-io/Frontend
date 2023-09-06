@@ -80,13 +80,34 @@ const getPartners = async (domain: String, orderId: String) => {
   }
 };
 
-const logUnloadPage = async (domain: String, orderId: String) => {
+const logEvent = async (domain: String, orderId: String, eventName: String) => {
   try {
     return await axios.post(
-      `${baseUrl}/partner/pageUnloaded`,
+      `${baseUrl}/partner/logEvent`,
       {
         shopifyId: domain,
         orderId: orderId,
+        eventName: eventName,
+      },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addEmail = async (domain: String, email: String) => {
+  try {
+    return await axios.post(
+      `${baseUrl}/partner/addEmail`,
+      {
+        shopifyId: domain,
+        email: email,
       },
       {
         headers: {
@@ -106,5 +127,6 @@ export {
   getLinkInfo,
   incrementLinkClicks,
   getPartners,
-  logUnloadPage,
+  logEvent,
+  addEmail,
 };
